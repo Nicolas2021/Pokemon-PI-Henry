@@ -1,0 +1,6 @@
+.loader {
+  width: 100%;
+  min-height: 55.6vh;
+  background: white url(./loader.gif) no-repeat center;
+  background-size: 50%;
+}
