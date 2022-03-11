@@ -1,0 +1,31 @@
+.form__Pokemon {
+  min-height: 100vh;
+  background-color: aqua;
+  display: flex;
+  flex-direction: column;
+}
+.input-Form {
+  text-align: center;
+  width: 100%;
+  margin: 15px 0;
+  height: 25px;
+
+  border: inherit;
+  border-radius: 10px;
+  font-family: PokemonClassic;
+}
+
+.danger {
+  text-align: center;
+  width: 100%;
+  margin: 15px 0;
+  height: 25px;
+  background-color: rgb(155, 103, 103);
+  border: rgb(118, 91, 91);
+  border-radius: 10px;
+  font-family: PokemonClassic;
+}
+
+.spanAlert {
+  font-size: 12px;
+}
