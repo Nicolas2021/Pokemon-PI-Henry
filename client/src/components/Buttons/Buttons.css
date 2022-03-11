@@ -1,0 +1,147 @@
+button {
+  border-radius: 50px;
+  border: 2px black solid;
+}
+
+.buttons__container {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  width: 1000px;
+  height: 100px;
+  display: inline-flex;
+}
+
+.action__buttons {
+  width: 1000px;
+  display: grid;
+  grid-template-columns: 200px 550px 200px;
+  grid-template-rows: 40px 40px;
+  grid-gap: 0.9rem;
+}
+
+.create__button {
+  margin-left: 25px;
+  height: 100px;
+  grid-column: 2;
+  grid-row: 1 / 3;
+}
+
+/*BOTONES*/
+
+.create__button button {
+  width: 200px;
+  height: 100px;
+  background-color: var(--color-terciario);
+}
+
+.action__buttons .type {
+  width: 200px;
+  height: 45px;
+  background-color: var(--color-terciario);
+}
+
+.action__buttons .asc__desc {
+  margin-left: 30px;
+  width: 200px;
+  height: 45px;
+  background-color: var(--color-terciario);
+}
+
+.action__buttons .existent {
+  margin-left: 30px;
+  width: 200px;
+  height: 45px;
+  background-color: var(--color-terciario);
+}
+
+.action__buttons .strong {
+  width: 200px;
+  height: 45px;
+  background-color: var(--color-terciario);
+}
+
+/*EFECTOS Y BOTONES DESPLEGABLES*/
+
+.buttons__container button:hover {
+  cursor: pointer;
+}
+
+/*DESPLEGABLE DE TYPES*/
+.type__container {
+  height: 100%;
+  width: 100%;
+}
+
+.types__buttons {
+  display: none;
+}
+
+.type__container:hover .types__buttons {
+  margin-left: 10px;
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+
+/*DESPLEGABLE POR CREADO O EXISTENTE*/
+.existent__container {
+  height: 100%;
+  width: 100%;
+}
+
+.existent__buttons {
+  display: none;
+}
+
+.existent__container:hover .existent__buttons {
+  margin-left: 40px;
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+
+/*DESPLEGABLE POR ASCENDENTE/DESCENDENTE*/
+.asc__container {
+  height: 100%;
+  width: 100%;
+}
+
+.asc__buttons {
+  display: none;
+}
+
+.asc__container:hover .asc__buttons {
+  margin-left: 40px;
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+
+/*DESPLEGABLE POR FUERZA*/
+.strong__container {
+  height: 100%;
+  width: 100%;
+}
+
+.strong__buttons {
+  display: none;
+}
+
+.strong__container:hover .strong__buttons {
+  margin-left: 10px;
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+
+.action__buttons button:hover {
+  background-color: var(--color-secundario);
+}
