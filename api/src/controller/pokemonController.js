@@ -1,60 +1,89 @@
 const { default: axios } = require("axios");
-const { urlApi, arrOfPokemonsOfBd } = require("../domain/common/constantes");
-const { createMyPokemonsResponseFromApi, getPokemonsByBd, createMyPokemonsResponseFromBd } = require("../domain/pokemons/pokemon");
+const { urlApi } = require("../domain/common/constantes");
+const {
+  createMyPokemonsResponseFromApi,
+  pokemonsFromBD,
+} = require("../domain/pokemons/pokemon");
+const { Pokemon, Tipo } = require("../db.js");
+const { v4: uuidv4 } = require("uuid");
 
-var pokemonsFromApi;
-var pokemonsFromBd;
+//----------------------------------------------------------//
 
-async function getAllPokemons(req,res) {
-    try {
-        const pokemonsUrls = await axios.get(`${urlApi}/pokemon`);
-    
-        const pokemons = pokemonsUrls.data.results.map(pokemon=>axios.get(pokemon.url)); // Passing the whole { url : "..." , name : "Source2" } as "config". This syntax is equivalent to sources.map(source => axios.get(sources))
-        const results = await Promise.all(pokemons);
-        const response = createMyPokemonsResponseFromApi(results);
+async function getAllPokemons(req, res) {
+  try {
+    const dbPokemons = await Pokemon.findAll({ include: { model: Tipo } });
+    const pokemonsResultsFromDB = pokemonsFromBD(dbPokemons);
 
-        pokemonsFromBd = getPokemonsByBd();
-        pokemonsFromBd = createMyPokemonsResponseFromBd(pokemonsFromBd);
-        pokemonsFromApi = response;
-    
-        const pokemonsFromBDandApi = [...pokemonsFromBd,...pokemonsFromApi];
-        res.status(200).send(pokemonsFromBDandApi);
-    } catch (error) {
-        res.status(404).send({error});
-    }
+    const pokemonsUrls = await axios.get(`${urlApi}/pokemon?limit=40`);
+
+    const pokemons = pokemonsUrls.data.results.map((pokemon) =>
+      axios.get(pokemon.url)
+    ); // Passing the whole { url : "..." , name : "Source2" } as "config". This syntax is equivalent to sources.map(source => axios.get(sources))
+    const results = await Promise.all(pokemons);
+    const response = createMyPokemonsResponseFromApi(results);
+    //concat pokemons from api and db
+    const allPokemons = response.concat(pokemonsResultsFromDB);
+    res.status(200).send(allPokemons);
+  } catch (error) {
+    res.status(500).send({ error });
+  }
 }
 
-function getById(req,res) {
-    const id = req.params.id;
-    
-    const pokemonsFromBDandApi = [...pokemonsFromBd,...pokemonsFromApi];
+//----------------------------------------------------------//
 
-    const result = pokemonsFromBDandApi.find(pokemon => pokemon.id == id);
-
-    res.status(200).send(result)
+async function getAllTypes(req, res) {
+  try {
+    const callTypes = await axios.get(`${urlApi}/type`);
+    callTypes.data.results.forEach((e) => {
+      Tipo.findOrCreate({
+        where: { nombre: e.name },
+        defaults: {
+          nombre: e.name,
+        },
+      });
+    });
+    res.status(200).send(callTypes.data.results);
+  } catch (error) {
+    res.status(500).send({ error });
+  }
 }
 
-function createPokemon(req,res){
-    const pokemon = {
-        id: "bd9dc32aasdsad",
-        nombre: "hehe",
-        vida: 30,
-        fuerza: 15,
-        defensa: 20,
-        velocidad: 30,
-        altura: 50,
-        peso: 40,
-        img: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
-        tipos: [{type:{name:"pito"}},{type:{name:"chico"}}],
-    };
+//----------------------------------------------------------//
 
-    arrOfPokemonsOfBd.push(pokemon);
-    pokemonsFromBd = getPokemonsByBd();
-    res.status(200).send(pokemonsFromBd)
+async function createPokemon(req, res) {
+  let { nombre, vida, fuerza, defensa, velocidad, altura, peso, img, tipo } =
+    req.body;
+  try {
+    const pokemonCreated = await Pokemon.create({
+      id: uuidv4(),
+      nombre: nombre,
+      vida: vida,
+      fuerza: fuerza,
+      defensa: defensa,
+      velocidad: velocidad,
+      altura: altura,
+      peso: peso,
+      img:
+        img ||
+        "https://gogeticons.com/frontend/web/icons/data/2/7/2/9/2/superball_512.png",
+    });
+    tipo.map(async (t) => {
+      const [postTypes, succes] = await Tipo.findOrCreate({
+        where: {
+          nombre: t,
+        },
+        defaults: { nombre: t },
+      });
+      await pokemonCreated.addTipo(postTypes);
+    });
+    return res.status(200).send(pokemonCreated);
+  } catch (error) {
+    res.status(404).send("No se puede cargar el Pokemon");
+  }
 }
 
 module.exports = {
-    getAllPokemons,
-    getById,
-    createPokemon
-}
+  getAllPokemons,
+  createPokemon,
+  getAllTypes,
+};
