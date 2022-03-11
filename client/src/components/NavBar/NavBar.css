@@ -1,0 +1,38 @@
+.navContainer {
+  height: 50px;
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-between;
+  align-self: center;
+}
+
+.navContainer h1 {
+  font-family: Pokemon Solid;
+  font-size: 25px;
+  color: black;
+}
+
+.search__button {
+  padding-top: 15px;
+  display: inline-flex;
+}
+
+.search__button button {
+  background: url(./pokeball.png) center center;
+  height: 30px;
+  width: 30px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  border: 0;
+  margin: 10px 5px;
+}
+
+.search__button input {
+  margin: 10px 5px;
+  background-color: #616161;
+  border: 2px black solid;
+  border-radius: 5px;
+  width: 200px;
+  height: 30px;
+}
