@@ -1,0 +1,78 @@
+.paginado__container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 80px 0 black inset, 1269px 0 white inset;
+
+  /*#616161 */
+}
+
+.boxes__container {
+  background-color: #616161;
+  height: 50px;
+  width: 100%;
+}
+
+.bordeado__container {
+  display: inline-flex;
+  background-color: #616161;
+  align-self: center;
+  height: 25px;
+  width: 500px;
+  position: relative;
+}
+
+.bordeado__container::before {
+  background: transparent
+    url(https://assets.pokemon.com/static2/_ui/img/chrome/notches/large-notch-darkgray.png)
+    no-repeat;
+  background-size: 38px 26px;
+  content: "";
+  width: 38px;
+  height: 25px;
+  position: absolute;
+  transform: scaleY(-1);
+  left: -38px;
+}
+
+.bordeado__container::after {
+  background: transparent
+    url(https://assets.pokemon.com/static2/_ui/img/chrome/notches/large-notch-darkgray.png)
+    no-repeat;
+  background-size: 38px 26px;
+  content: "";
+  width: 38px;
+  height: 25px;
+  position: absolute;
+  transform: scaleY(-1);
+  transform: rotate(180deg);
+  right: -38px;
+}
+
+.paginado {
+  position: relative;
+  margin-top: 40px;
+  display: inline-block;
+  padding: 0;
+}
+
+.paginado li {
+  display: inline;
+}
+
+.paginado li button {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: 0.3s;
+  margin: 0 2px;
+  font-size: 15px;
+}
+
+.arrow {
+  width: 40px;
+  height: 20px;
+  cursor: pointer;
+}
