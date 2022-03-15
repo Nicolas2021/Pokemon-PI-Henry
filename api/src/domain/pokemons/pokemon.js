@@ -30,4 +30,41 @@ function pokemonsFromBD(pokemonsData) {
   return pokemonsInfo;
 }
 
-module.exports = { createMyPokemonsResponseFromApi, pokemonsFromBD };
+function pokemonsId(pokemonsDataId) {
+  const pokemonsObtainsById = {
+    id: pokemonsDataId.data.id,
+    nombre: pokemonsDataId.data.name,
+    img: pokemonsDataId.data.sprites.front_default,
+    tipos: pokemonsDataId.data.types.map((el) => el.type.name),
+    vida: pokemonsDataId.data.stats[0].base_stat,
+    fuerza: pokemonsDataId.data.stats[1].base_stat,
+    defensa: pokemonsDataId.data.stats[2].base_stat,
+    velocidad: pokemonsDataId.data.stats[5].base_stat,
+    altura: pokemonsDataId.data.height,
+    peso: pokemonsDataId.data.weight,
+  };
+  return pokemonsObtainsById;
+}
+
+function pokemonFromDbId(pokemonId) {
+  const searchPokemon = {
+    id: pokemonId.id,
+    nombre: pokemonId.nombre,
+    img: pokemonId.img,
+    tipos: pokemonId.tipos.map((el) => el.nombre),
+    vida: pokemonId.vida,
+    fuerza: pokemonId.fuerza,
+    defensa: pokemonId.defensa,
+    velocidad: pokemonId.velocidad,
+    altura: pokemonId.altura,
+    peso: pokemonId.peso,
+  };
+  return searchPokemon;
+}
+
+module.exports = {
+  createMyPokemonsResponseFromApi,
+  pokemonsFromBD,
+  pokemonsId,
+  pokemonFromDbId,
+};

@@ -3,6 +3,8 @@ const { urlApi } = require("../domain/common/constantes");
 const {
   createMyPokemonsResponseFromApi,
   pokemonsFromBD,
+  pokemonsId,
+  pokemonFromDbId,
 } = require("../domain/pokemons/pokemon");
 const { Pokemon, Tipo } = require("../db.js");
 const { v4: uuidv4 } = require("uuid");
@@ -14,15 +16,24 @@ async function getAllPokemons(req, res) {
     const dbPokemons = await Pokemon.findAll({ include: { model: Tipo } });
     const pokemonsResultsFromDB = pokemonsFromBD(dbPokemons);
 
-    const pokemonsUrls = await axios.get(`${urlApi}/pokemon?limit=40`);
-
+    const pokemonsUrls = await axios.get(`${urlApi}/pokemon`);
+    const nextPokemonsUrls = await axios.get(`${pokemonsUrls.data.next}`);
     const pokemons = pokemonsUrls.data.results.map((pokemon) =>
       axios.get(pokemon.url)
-    ); // Passing the whole { url : "..." , name : "Source2" } as "config". This syntax is equivalent to sources.map(source => axios.get(sources))
+    );
+    const nextPokemons = nextPokemonsUrls.data.results.map((pokemon) =>
+      axios.get(pokemon.url)
+    );
     const results = await Promise.all(pokemons);
+    const resultsNext = await Promise.all(nextPokemons);
+
     const response = createMyPokemonsResponseFromApi(results);
+    const responseNext = createMyPokemonsResponseFromApi(resultsNext);
     //concat pokemons from api and db
-    const allPokemons = response.concat(pokemonsResultsFromDB);
+    const allPokemons = response
+      .concat(responseNext)
+      .concat(pokemonsResultsFromDB);
+
     res.status(200).send(allPokemons);
   } catch (error) {
     res.status(500).send({ error });
@@ -50,9 +61,33 @@ async function getAllTypes(req, res) {
 
 //----------------------------------------------------------//
 
+async function getById(req, res) {
+  let { id } = req.body;
+  if (id.length > 3) {
+    try {
+      const pokemonGetByDbId = await Pokemon.findByPk(id, { include: [Tipo] });
+      const resultPokemonDb = pokemonFromDbId(pokemonGetByDbId);
+      res.send(resultPokemonDb);
+    } catch (error) {
+      res.send(error);
+    }
+  } else {
+    try {
+      const pokemonsGetById = await axios.get(`${urlApi}/pokemon/${id}`);
+      const pokemonGet = pokemonsId(pokemonsGetById);
+      res.send(pokemonGet);
+    } catch (error) {
+      res.send(error);
+    }
+  }
+}
+
+//----------------------------------------------------------//
+
 async function createPokemon(req, res) {
   let { nombre, vida, fuerza, defensa, velocidad, altura, peso, img, tipo } =
     req.body;
+
   try {
     const pokemonCreated = await Pokemon.create({
       id: uuidv4(),
@@ -67,6 +102,7 @@ async function createPokemon(req, res) {
         img ||
         "https://gogeticons.com/frontend/web/icons/data/2/7/2/9/2/superball_512.png",
     });
+    console.log(pokemonCreated);
     tipo.map(async (t) => {
       const [postTypes, succes] = await Tipo.findOrCreate({
         where: {
@@ -86,4 +122,5 @@ module.exports = {
   getAllPokemons,
   createPokemon,
   getAllTypes,
+  getById,
 };

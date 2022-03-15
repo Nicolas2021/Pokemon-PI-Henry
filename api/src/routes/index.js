@@ -5,8 +5,8 @@ const PokemonController = require("../controller/pokemonController");
 
 const router = Router();
 
-router.get("/getAll", PokemonController.getAllPokemons); /* 
-router.get('/getById/:id',PokemonController.getById)*/
+router.get("/getAll", PokemonController.getAllPokemons);
+router.get("/getById", PokemonController.getById);
 router.post("/createPokemon", PokemonController.createPokemon);
 router.get("/getTypes", PokemonController.getAllTypes);
 
