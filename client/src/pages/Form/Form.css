@@ -1,31 +1,117 @@
+input {
+  text-align: center;
+  border: rgb(118, 91, 91);
+  border-radius: 10px;
+  width: 200px;
+}
+label {
+  width: 50px;
+}
+select {
+  width: 200px;
+  border-radius: 10px;
+}
+
+select.active {
+  height: 100px;
+}
+
 .form__Pokemon {
+  width: 100%;
   min-height: 100vh;
-  background-color: aqua;
+  background-color: rgb(37, 36, 36);
   display: flex;
-  flex-direction: column;
+  justify-content: center;
 }
 .input-Form {
-  text-align: center;
-  width: 100%;
-  margin: 15px 0;
+  width: 200px;
   height: 25px;
-
   border: inherit;
   border-radius: 10px;
-  font-family: PokemonClassic;
 }
 
 .danger {
-  text-align: center;
-  width: 100%;
-  margin: 15px 0;
+  width: 200px;
   height: 25px;
   background-color: rgb(155, 103, 103);
-  border: rgb(118, 91, 91);
   border-radius: 10px;
-  font-family: PokemonClassic;
 }
 
 .spanAlert {
+  width: 250px;
   font-size: 12px;
+}
+
+/*Primer container*/
+.container__form {
+  border: 5px rgb(219, 219, 93) solid;
+  margin-top: 25px;
+  background-color: rgb(180, 65, 65);
+  height: 600px;
+  width: 700px;
+  display: inline-flex;
+  flex-direction: column;
+}
+
+/*CONTAINER DE ARRIBA*/
+.side__top {
+  margin-top: 20px;
+  height: 50px;
+  width: 100%;
+  position: relative;
+  border-bottom: 2px black solid;
+}
+
+/*CONTAINER DE LA IZQUIERDA*/
+.side__left {
+  padding-top: 20px;
+  margin-left: 20px;
+  width: 340px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border-right: 2px black solid;
+}
+
+/*CONTAINER DE LA DERECHA*/
+.side__right {
+  padding-top: 20px;
+  margin-left: 20px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+/*CONTAINER QUE TIENE LOS SIDE RIGHT Y LEFT*/
+.continainer__sides {
+  display: inline-flex;
+}
+
+/*CONTAINER DE ABAJO*/
+.side__bottom {
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+/*MENU DESPLAZABLE DEL TIPES*/
+.buttons__container {
+  height: 200px;
+}
+
+/*botones de abajo*/
+
+.submit__button {
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.back__button {
+  text-align: center;
+  border: rgb(118, 91, 91);
+  border-radius: 10px;
+  width: 200px;
+  cursor: pointer;
 }
