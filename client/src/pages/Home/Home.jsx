@@ -7,6 +7,7 @@ import { Buttons } from "../../components/Buttons/Buttons";
 import { Paginado } from "../../components/Paginado/Paginado";
 import { Card } from "../../components/Cards/Card";
 import { Loading } from "../../components/Loading/Loading";
+import { Modal } from "../../components/Modal/Modal";
 
 import "./Home.css";
 //-------------------------------------
@@ -19,6 +20,8 @@ const Home = () => {
 
   const [isLoading, setisLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
+  const [numero, setNumero] = useState("");
   //-------------------------------------
   useEffect(() => {
     dispatch(getAllPokemons()).then(() => {
@@ -38,6 +41,19 @@ const Home = () => {
   };
   //-------------------------------------
 
+  const openModal = () => {
+    setIsOpen(true);
+  };
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  const setearNumero = (id) => {
+    setNumero(id);
+  };
+
+  //-------------------------------------
+
   return (
     <div className="background__container">
       <header>
@@ -47,11 +63,14 @@ const Home = () => {
 
       <main>
         <Paginado next={next} previous={previous} />
+        {isOpen && <Modal closeModal={closeModal} numeroId={numero} />}
         <div className="cards__container">
           {isLoading && <Loading />}
           {filteredPokemons.map((pokemon, item) => {
             return (
               <Card
+                setearNumero={setearNumero}
+                openModal={openModal}
                 key={item}
                 id={pokemon.id}
                 nombre={pokemon.nombre}

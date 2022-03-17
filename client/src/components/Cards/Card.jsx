@@ -5,14 +5,23 @@ import {
   getColorByTypesOfPokemon,
   addZeroToId,
 } from "../domain/pokemons/pokemones.js";
+//-------------------------------------
 
-export const Card = ({ id, nombre, img, tipos }) => {
+export const Card = ({ id, nombre, img, tipos, openModal, setearNumero }) => {
   var name = toUpperCaseNamePokemon(nombre);
   const colorTypes = getColorByTypesOfPokemon(tipos);
   const newId = addZeroToId(id);
+  //-------------------------------------
+
+  function OnClickPokemon(pokemonId) {
+    setearNumero(pokemonId);
+    openModal();
+  }
+  //-------------------------------------
+
   return (
     <div className="components">
-      <div className="cards">
+      <div className="cards" onClick={() => OnClickPokemon(id)}>
         <div className="card__img">
           <img src={img} alt="" />
         </div>

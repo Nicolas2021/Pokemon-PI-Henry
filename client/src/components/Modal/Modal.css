@@ -1,0 +1,68 @@
+.modal__open {
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  width: 100%;
+  min-height: 100vh;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+/*contenedor de la info*/
+
+.modal__container {
+  margin-top: 50px;
+  height: 550px;
+  width: 500px;
+  color: rgb(255, 255, 255);
+  background-color: rgb(22, 92, 92);
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 1.5);
+  border-radius: 5%;
+}
+
+/*Parte de arriba del boton*/
+.modal__top {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal__top button {
+  font-size: 30px;
+  margin-top: 12px;
+  margin-right: 20px;
+  color: rgba(0, 0, 0, 0.75);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/*Parte del body*/
+
+.modal__body {
+  height: 100%;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.modal__body img {
+  width: 200px;
+  height: 200px;
+}
+
+.modal__info {
+  margin-top: 15px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.modal__info p {
+  max-width: 50px;
+  margin-top: 3px;
+}
