@@ -1,5 +1,4 @@
-const initialState = { loading: false, pokemons: [], tipos: [] };
-
+const initialState = { loading: false, pokemons: [], tipos: [], id: [] };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case "GETALL_POKEMONS":
@@ -7,6 +6,10 @@ const reducer = (state = initialState, action) => {
 
     case "GETALL_TYPES":
       return { ...state, tipos: [...action.query] };
+
+    case "GETPOK_ID":
+      return { ...state, id: [action.query] };
+
     default:
       return state;
   }

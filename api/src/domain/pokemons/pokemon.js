@@ -15,7 +15,7 @@ function createMyPokemonsResponseFromApi(pokemonsArr) {
 function pokemonsFromBD(pokemonsData) {
   const pokemonsInfo = pokemonsData.map((el) => {
     return {
-      id: el.dataValues.id.slice(0, 3),
+      id: el.dataValues.id,
       nombre: el.dataValues.nombre,
       vida: el.dataValues.vida,
       fuerza: el.dataValues.fuerza,

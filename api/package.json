@@ -25,6 +25,7 @@
     "morgan": "^1.10.0",
     "pg": "^8.5.1",
     "sequelize": "^6.3.5",
+    "short-uuid": "^4.2.0",
     "uuidv4": "^6.2.12"
   },
   "devDependencies": {

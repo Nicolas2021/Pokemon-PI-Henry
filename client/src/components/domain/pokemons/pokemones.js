@@ -27,8 +27,10 @@ export function addZeroToId(id) {
   if (id < 10) {
     id = "00" + id;
     return id;
-  } else {
+  } else if (id < 50) {
     id = "0" + id;
+    return id;
+  } else {
     return id;
   }
 }

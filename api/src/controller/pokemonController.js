@@ -10,7 +10,6 @@ const { Pokemon, Tipo } = require("../db.js");
 const { v4: uuidv4 } = require("uuid");
 
 //----------------------------------------------------------//
-
 async function getAllPokemons(req, res) {
   try {
     const dbPokemons = await Pokemon.findAll({ include: { model: Tipo } });
@@ -62,7 +61,8 @@ async function getAllTypes(req, res) {
 //----------------------------------------------------------//
 
 async function getById(req, res) {
-  let { id } = req.body;
+  let { id } = req.params;
+  console.log(id);
   if (id.length > 3) {
     try {
       const pokemonGetByDbId = await Pokemon.findByPk(id, { include: [Tipo] });
@@ -87,10 +87,11 @@ async function getById(req, res) {
 async function createPokemon(req, res) {
   let { nombre, vida, fuerza, defensa, velocidad, altura, peso, img, tipo } =
     req.body;
-
+  var nuevaIdV4 = uuidv4();
+  const nuevaIdParaDb = nuevaIdV4.slice(0, 4);
   try {
     const pokemonCreated = await Pokemon.create({
-      id: uuidv4(),
+      id: nuevaIdParaDb,
       nombre: nombre,
       vida: vida,
       fuerza: fuerza,
@@ -102,7 +103,7 @@ async function createPokemon(req, res) {
         img ||
         "https://gogeticons.com/frontend/web/icons/data/2/7/2/9/2/superball_512.png",
     });
-    console.log(pokemonCreated);
+    console.log(req.body);
     tipo.map(async (t) => {
       const [postTypes, succes] = await Tipo.findOrCreate({
         where: {
