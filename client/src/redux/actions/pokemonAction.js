@@ -3,9 +3,11 @@ import {
   getAllPokemonsFromDbAndApi,
   getAllTypesFromApi,
   getPokemonById,
+  getPokemonByName,
+  getExistentOrCreated,
 } from "../../assets/common/configurarRutas";
 
-export function getAllPokemons() {
+function getAllPokemons() {
   return async (dispatch) => {
     try {
       const pokemons = await axios.get(getAllPokemonsFromDbAndApi);
@@ -17,7 +19,20 @@ export function getAllPokemons() {
   };
 }
 
-export function getAllTypes() {
+function getPokemonExistentOrCreated(param) {
+  return async (dispatch) => {
+    console.log(param);
+    try {
+      const resolve = await axios.get(`${getExistentOrCreated}?param=${param}`);
+      dispatch({
+        type: "CREATED_EXIS",
+        query: resolve.data,
+      });
+    } catch (error) {}
+  };
+}
+
+function getAllTypes() {
   return async (dispatch) => {
     try {
       const tipos = await axios.get(getAllTypesFromApi);
@@ -30,7 +45,7 @@ export function getAllTypes() {
   };
 }
 
-export function getById(id) {
+function getById(id) {
   return async (dispatch) => {
     try {
       const unicPokemon = await axios.get(`${getPokemonById}/${id}`);
@@ -42,3 +57,50 @@ export function getById(id) {
     } catch (error) {}
   };
 }
+
+function getName(nombre) {
+  return async (dispatch) => {
+    try {
+      const pokemonNombre = await axios.get(
+        `${getPokemonByName}?name=${nombre}`
+      );
+
+      dispatch({
+        type: "GETPOK_NAME",
+        query: pokemonNombre.data,
+      });
+    } catch (error) {}
+  };
+}
+
+function orderByAlf(order) {
+  return {
+    type: "POKEMONBY_ALF",
+    query: order,
+  };
+}
+
+function orderByStr(order) {
+  return {
+    type: "POKEMONBY_STR",
+    query: order,
+  };
+}
+
+function filterByType(filter) {
+  return {
+    type: "POKEMON_FILTER",
+    query: filter,
+  };
+}
+
+export {
+  getPokemonExistentOrCreated,
+  getAllPokemons,
+  getAllTypes,
+  getById,
+  getName,
+  orderByAlf,
+  orderByStr,
+  filterByType,
+};
