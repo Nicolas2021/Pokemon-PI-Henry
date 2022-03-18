@@ -9,6 +9,16 @@ const typeColors = {
   electric: "#FFD700",
   ground: "#DEB887",
   fairy: "#FFB0FF",
+  fighting: "#FF6A6A",
+  rock: "#CD853F",
+  ghost: "#778899",
+  steel: "#CCCCCC",
+  psychic: "#FFB5C5",
+  ice: "#ADD8E6",
+  dragon: "#AB82FF",
+  dark: "#A9A9A9",
+  unknown: "#59B388",
+  shadow: "#230C2E",
 };
 
 export function toUpperCaseNamePokemon(name) {
