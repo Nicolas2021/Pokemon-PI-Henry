@@ -37,7 +37,9 @@ const Home = () => {
     }
   };
   const next = () => {
-    setCurrentPage(currentPage + 8);
+    if (pokemons.length > currentPage + 8) {
+      setCurrentPage(currentPage + 8);
+    }
   };
   //-------------------------------------
 
@@ -49,6 +51,7 @@ const Home = () => {
   };
 
   const setearNumero = (id) => {
+    console.log(id);
     setNumero(id);
   };
 
@@ -73,6 +76,7 @@ const Home = () => {
                 openModal={openModal}
                 key={item}
                 id={pokemon.id}
+                fuerza={pokemon.fuerza}
                 nombre={pokemon.nombre}
                 img={pokemon.img}
                 tipos={pokemon.tipos}
