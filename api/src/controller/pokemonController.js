@@ -5,9 +5,67 @@ const {
   pokemonsFromBD,
   pokemonsId,
   pokemonFromDbId,
+  pokemonInfoByName,
+  pokemonNameApi,
+  allPokemonsFromDB,
+  getAllTypesFromDb,
 } = require("../domain/pokemons/pokemon");
 const { Pokemon, Tipo } = require("../db.js");
 const { v4: uuidv4 } = require("uuid");
+//----------------------------------------------------------//
+
+async function getPokemonByName(req, res) {
+  let { name } = req.query;
+  try {
+    const nameFromDb = await Pokemon.findOne({
+      where: { nombre: `${name}` },
+      include: [{ model: Tipo }],
+    });
+    if (nameFromDb === null) {
+      const getNombre = await axios.get(`${urlApi}/pokemon/${name}`);
+      const obtain = pokemonNameApi(getNombre);
+      res.send(obtain);
+    }
+    const traido = pokemonInfoByName(nameFromDb);
+    res.send(traido);
+  } catch (error) {
+    res.send(error);
+  }
+}
+//----------------------------------------------------------//
+
+async function getExistOrCreate(req, res) {
+  let { param } = req.query;
+
+  try {
+    if (param === "CREADO") {
+      const pokemonsDbCreateds = await Pokemon.findAll({
+        include: { model: Tipo },
+      });
+      const pokemonsResultsCreateds = pokemonsFromBD(pokemonsDbCreateds);
+      res.send(pokemonsResultsCreateds);
+    } else {
+      const pokemonsUrls = await axios.get(`${urlApi}/pokemon`);
+      const nextPokemonsUrls = await axios.get(`${pokemonsUrls.data.next}`);
+      const pokemons = pokemonsUrls.data.results.map((pokemon) =>
+        axios.get(pokemon.url)
+      );
+      const nextPokemons = nextPokemonsUrls.data.results.map((pokemon) =>
+        axios.get(pokemon.url)
+      );
+      const results = await Promise.all(pokemons);
+      const resultsNext = await Promise.all(nextPokemons);
+
+      const response = createMyPokemonsResponseFromApi(results);
+      const responseNext = createMyPokemonsResponseFromApi(resultsNext);
+
+      const allPokemons = response.concat(responseNext);
+      res.send(allPokemons);
+    }
+  } catch (error) {
+    res.send(error);
+  }
+}
 
 //----------------------------------------------------------//
 async function getAllPokemons(req, res) {
@@ -120,6 +178,8 @@ async function createPokemon(req, res) {
 }
 
 module.exports = {
+  getExistOrCreate,
+  getPokemonByName,
   getAllPokemons,
   createPokemon,
   getAllTypes,

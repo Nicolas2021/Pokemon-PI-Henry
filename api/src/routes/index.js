@@ -5,10 +5,14 @@ const PokemonController = require("../controller/pokemonController");
 
 const router = Router();
 
+router.get("/getName", PokemonController.getPokemonByName);
 router.get("/getAll", PokemonController.getAllPokemons);
 router.get("/getById/:id", PokemonController.getById);
 router.post("/createPokemon", PokemonController.createPokemon);
 router.get("/getTypes", PokemonController.getAllTypes);
+router.get("/getExistOrCreated", PokemonController.getExistOrCreate);
+//---------------------------------------
+router.get("/getTipe", PokemonController.getAllTypes);
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);

@@ -6,6 +6,7 @@ function createMyPokemonsResponseFromApi(pokemonsArr) {
       nombre: pokemonInfoFromApi.data.name,
       img: pokemonInfoFromApi.data.sprites.front_default,
       tipos: pokemonInfoFromApi.data.types.map((type) => type.type.name),
+      fuerza: pokemonInfoFromApi.data.stats[1].base_stat,
     };
   });
 
@@ -28,6 +29,25 @@ function pokemonsFromBD(pokemonsData) {
     };
   });
   return pokemonsInfo;
+}
+
+function allPokemonsFromDB(infoCreated) {
+  const pokemonFromDbCreated = infoCreated.map((el) => {
+    return {
+      id: el.dataValues.id,
+      nombre: el.dataValues.nombre,
+      vida: el.dataValues.vida,
+      fuerza: el.dataValues.fuerza,
+      defensa: el.dataValues.defensa,
+      velocidad: el.dataValues.velocidad,
+      altura: el.dataValues.altura,
+      peso: el.dataValues.peso,
+      img: el.dataValues.img,
+      tipos: el.dataValues.tipos.map((el) => el.nombre),
+    };
+  });
+  console.log(pokemonFromDbCreated);
+  return pokemonFromDbCreated;
 }
 
 function pokemonsId(pokemonsDataId) {
@@ -62,9 +82,54 @@ function pokemonFromDbId(pokemonId) {
   return searchPokemon;
 }
 
+function pokemonInfoByName(pokemon) {
+  const dataPokemon = {
+    id: pokemon.dataValues.id,
+    nombre: pokemon.dataValues.nombre,
+    vida: pokemon.dataValues.vida,
+    fuerza: pokemon.dataValues.fuerza,
+    defensa: pokemon.dataValues.defensa,
+    velocidad: pokemon.dataValues.velocidad,
+    altura: pokemon.dataValues.altura,
+    peso: pokemon.dataValues.peso,
+    img: pokemon.dataValues.img,
+    tipos: pokemon.dataValues.tipos.map((el) => el.nombre),
+  };
+  return dataPokemon;
+}
+
+function pokemonNameApi(pokemonName) {
+  const pokemonsObtainsByName = {
+    id: pokemonName.data.id,
+    nombre: pokemonName.data.name,
+    img: pokemonName.data.sprites.front_default,
+    tipos: pokemonName.data.types.map((el) => el.type.name),
+    vida: pokemonName.data.stats[0].base_stat,
+    fuerza: pokemonName.data.stats[1].base_stat,
+    defensa: pokemonName.data.stats[2].base_stat,
+    velocidad: pokemonName.data.stats[5].base_stat,
+    altura: pokemonName.data.height,
+    peso: pokemonName.data.weight,
+  };
+  return pokemonsObtainsByName;
+}
+//---------------------------------------------
+function getAllTypesFromDb(dataBD) {
+  const pokeTipes = dataBD.map((e) => {
+    return {
+      nombre: e.dataValues.nombre,
+    };
+  });
+  return pokeTipes;
+}
+
 module.exports = {
+  getAllTypesFromDb,
+  allPokemonsFromDB,
   createMyPokemonsResponseFromApi,
   pokemonsFromBD,
   pokemonsId,
   pokemonFromDbId,
+  pokemonInfoByName,
+  pokemonNameApi,
 };
