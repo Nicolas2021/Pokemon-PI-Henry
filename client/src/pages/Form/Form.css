@@ -80,7 +80,7 @@ select.active {
   width: 300px;
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 /*CONTAINER QUE TIENE LOS SIDE RIGHT Y LEFT*/
