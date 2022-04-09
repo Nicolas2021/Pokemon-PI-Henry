@@ -66,6 +66,7 @@ select.active {
 .side__left {
   padding-top: 20px;
   margin-left: 20px;
+  height: 350px;
   width: 340px;
   display: flex;
   flex-direction: column;
@@ -114,4 +115,57 @@ select.active {
   border-radius: 10px;
   width: 200px;
   cursor: pointer;
+}
+
+.div {
+  margin-top: 2px;
+  background-color: white;
+  height: auto;
+  width: 200px;
+  border-radius: 10px;
+}
+
+.x_button {
+  margin-right: 2px;
+  margin-left: 1px;
+  height: 14px;
+  width: 20px;
+  cursor: pointer;
+  font-size: 12px;
+  border: none;
+  border-radius: 5px;
+  background-color: #f83c2b;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
+
+.div_types {
+  margin: 2px;
+  margin-bottom: 4px;
+  width: auto;
+  height: auto;
+  background-color: rgb(196, 189, 175);
+  display: inline-flex;
+  border-radius: 4px;
+}
+
+.div_types h4 {
+  margin-left: 2px;
+  font-size: 15px;
+}
+
+.mapeo {
+  font-size: 20px;
+  height: 25px;
+}
+
+.opciones {
+  font-size: 15px;
+  width: 12em;
+  height: 100px;
+  background-color: #383838;
+  border: none;
+  color: white;
 }

@@ -1,5 +1,5 @@
 const initialState = {
-  loading: false,
+  loading: true,
   pokemons: [],
   pokemonesfijos: [],
   tipos: [],
@@ -13,6 +13,24 @@ const reducer = (state = initialState, action) => {
         loading: false,
         pokemons: [...action.query],
         pokemonesfijos: [...action.query],
+      };
+
+    case "SET_ID":
+      return {
+        ...state,
+        id: [],
+      };
+
+    case "SET_STATE":
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case "SET_POK":
+      return {
+        ...state,
+        pokemons: [],
       };
 
     case "GETALL_TYPES":
@@ -89,13 +107,3 @@ const reducer = (state = initialState, action) => {
 };
 
 export default reducer;
-
-/* case 'BY_CONTINENT':
-  const allcountries = state.allCountries
-  const continentFiltered = action.payload === "All" ?
-  allcountries : allcountries.filter(e=>
-  e.continents[0] === action.payload)
-  return{
-    ...state,
-    countries: continentFiltered
-  } */

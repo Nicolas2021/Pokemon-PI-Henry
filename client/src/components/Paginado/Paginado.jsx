@@ -3,11 +3,17 @@ import { useDispatch } from "react-redux";
 import leftArrow from "./leftarrow.png";
 import rightArrow from "./rightarrow.png";
 import "./Paginado.css";
-import { getAllPokemons } from "../../redux/actions/pokemonAction";
+import {
+  getAllPokemons,
+  setearEstado,
+  setearPokemons,
+} from "../../redux/actions/pokemonAction";
 
 export const Paginado = ({ next, previous }) => {
   const dispatch = useDispatch();
   function onClickHandle() {
+    dispatch(setearPokemons());
+    dispatch(setearEstado(true));
     dispatch(getAllPokemons());
   }
 

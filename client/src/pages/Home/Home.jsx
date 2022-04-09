@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-import { getAllPokemons } from "../../redux/actions/pokemonAction";
+import { getAllPokemons, getById } from "../../redux/actions/pokemonAction";
 import { NavBar } from "../../components/NavBar/NavBar";
 import { Buttons } from "../../components/Buttons/Buttons";
 import { Paginado } from "../../components/Paginado/Paginado";
@@ -16,17 +16,16 @@ import "./Home.css";
 //-------------------------------------
 const Home = () => {
   const pokemons = useSelector((state) => state.pokemons);
+  const loading = useSelector((state) => state.loading);
+  const pokemonUnic = useSelector((state) => state.id);
   const dispatch = useDispatch();
 
-  const [isLoading, setisLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
-  const [numero, setNumero] = useState("");
+
   //-------------------------------------
   useEffect(() => {
-    dispatch(getAllPokemons()).then(() => {
-      setisLoading(false);
-    });
+    dispatch(getAllPokemons());
   }, [dispatch]);
 
   //-------------------------------------
@@ -49,12 +48,6 @@ const Home = () => {
   const closeModal = () => {
     setIsOpen(false);
   };
-
-  const setearNumero = (id) => {
-    console.log(id);
-    setNumero(id);
-  };
-
   //-------------------------------------
 
   return (
@@ -66,13 +59,12 @@ const Home = () => {
 
       <main>
         <Paginado next={next} previous={previous} />
-        {isOpen && <Modal closeModal={closeModal} numeroId={numero} />}
+        {isOpen && <Modal closeModal={closeModal} pokemons={pokemonUnic} />}
         <div className="cards__container">
-          {isLoading && <Loading />}
+          {loading && <Loading />}
           {filteredPokemons.map((pokemon, item) => {
             return (
               <Card
-                setearNumero={setearNumero}
                 openModal={openModal}
                 key={item}
                 id={pokemon.id}

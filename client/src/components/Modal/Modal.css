@@ -24,20 +24,70 @@
 
 /*Parte de arriba del boton*/
 .modal__top {
+  margin-top: 10px;
   height: 50px;
-  width: 100%;
+  width: 490px;
   display: flex;
   justify-content: flex-end;
 }
 
-.modal__top button {
-  font-size: 30px;
-  margin-top: 12px;
-  margin-right: 20px;
-  color: rgba(0, 0, 0, 0.75);
-  background-color: transparent;
-  border: none;
+/*Boton cierre*/
+.close-container {
+  width: 50px;
+  height: 70px;
   cursor: pointer;
+  position: relative;
+}
+
+.leftright {
+  margin-left: 10px;
+  height: 4px;
+  width: 30px;
+  position: absolute;
+  margin-top: 24px;
+  background-color: #f4a259;
+  border-radius: 2px;
+  transform: rotate(45deg);
+  transition: all 0.3s ease-in;
+}
+
+.rightleft {
+  margin-left: 10px;
+  height: 4px;
+  width: 30px;
+  position: absolute;
+  margin-top: 24px;
+  background-color: #f4a259;
+  border-radius: 2px;
+  transform: rotate(-45deg);
+  transition: all 0.3s ease-in;
+}
+
+.close-container p {
+  color: white;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 0.6em;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.3s ease-in;
+  opacity: 0;
+}
+.close {
+  margin-top: 40px;
+  margin-left: 2px;
+  position: relative;
+}
+
+.close-container:hover .leftright {
+  transform: rotate(-45deg);
+  background-color: #f25c66;
+}
+.close-container:hover .rightleft {
+  transform: rotate(45deg);
+  background-color: #f25c66;
+}
+.close-container:hover p {
+  opacity: 1;
 }
 
 /*Parte del body*/
@@ -50,11 +100,14 @@
 }
 
 .modal__body img {
-  width: 200px;
-  height: 200px;
+  width: 180px;
+  height: 180px;
+  border: #f4a259 2px solid;
+  border-radius: 20px;
 }
 
 .modal__info {
+  min-width: auto;
   margin-top: 15px;
   height: 100%;
   display: flex;
@@ -63,6 +116,39 @@
 }
 
 .modal__info p {
-  max-width: 50px;
+  align-self: start;
+  max-width: auto;
   margin-top: 3px;
+}
+
+.acomodar {
+  display: flex;
+  align-content: center;
+}
+
+.acomodar p {
+  color: white;
+  font-size: 20px;
+}
+
+/*LOADER*/
+
+.modal_containloader {
+  margin-top: 50px;
+  height: 550px;
+  width: 500px;
+  color: rgb(255, 255, 255);
+  background-color: rgb(22, 92, 92);
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 1.5);
+  border-radius: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.preloader {
+  background: url(./miu.webp);
+  width: 200px;
+  height: 200px;
+  position: relative;
 }

@@ -21,7 +21,6 @@ function getAllPokemons() {
 
 function getPokemonExistentOrCreated(param) {
   return async (dispatch) => {
-    console.log(param);
     try {
       const resolve = await axios.get(`${getExistentOrCreated}?param=${param}`);
       dispatch({
@@ -94,6 +93,26 @@ function filterByType(filter) {
   };
 }
 
+function setearEstado(state) {
+  return {
+    type: "SET_STATE",
+    query: state,
+  };
+}
+
+function setearPokemons(state) {
+  return {
+    type: "SET_POK",
+    query: state,
+  };
+}
+
+function setearId() {
+  return {
+    type: "SET_ID",
+  };
+}
+
 export {
   getPokemonExistentOrCreated,
   getAllPokemons,
@@ -103,4 +122,7 @@ export {
   orderByAlf,
   orderByStr,
   filterByType,
+  setearEstado,
+  setearPokemons,
+  setearId,
 };

@@ -12,11 +12,14 @@ export const NavBar = () => {
   }
 
   function onClickHandle() {
+    if (search.length === 0) {
+      return alert("No puedes buscar un pokemon si el input esta vacio");
+    }
     dispatch(getName(search));
   }
 
-  function onAbortChange() {
-    dispatch(getAllPokemons());
+  function cambiadora() {
+    console.log("hola");
   }
 
   return (
@@ -27,7 +30,6 @@ export const NavBar = () => {
           type="search"
           placeholder="...Search Pokemon"
           onChange={onHandleChange}
-          onAbort={onAbortChange}
         />
         <button type="submit" onClick={onClickHandle}></button>
       </div>

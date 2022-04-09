@@ -16,9 +16,8 @@ const Forms = () => {
   }, [dispatch]);
   //States----
 
-  const tipo = useSelector((state) => state.tipos);
+  const types = useSelector((state) => state.tipos);
   const [botonActivo, setBotonActivo] = useState(false);
-  const [tipos, setTipos] = useState([]);
   const [error, setError] = useState({
     nombre: "",
     vida: "",
@@ -32,8 +31,7 @@ const Forms = () => {
     velocidad: "",
     altura: "",
     peso: "",
-    img: "",
-    tipo: tipos,
+    tipo: [],
   });
 
   //Functions-----
@@ -54,14 +52,34 @@ const Forms = () => {
     });
   }
 
-  function onInputTypes({ target }) {
-    setTipos(pokemon.tipo.push(target.value));
+  function handleSelect(event) {
+    setPokemon({
+      ...pokemon,
+      tipo: [...pokemon.tipo, event.target.value],
+    });
+  }
+
+  function handleDelete(option) {
+    setPokemon({
+      ...pokemon,
+      tipo: pokemon.tipo.filter((type) => type !== option),
+    });
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
     await axios.post(posteoPokemons, pokemon);
     alert(`Atrapaste un ${pokemon.nombre}!!!`);
+    setPokemon({
+      nombre: "",
+      vida: "",
+      fuerza: "",
+      defensa: "",
+      velocidad: "",
+      altura: "",
+      peso: "",
+      tipo: [],
+    });
   }
   //----------
   return (
@@ -69,7 +87,7 @@ const Forms = () => {
       <form className="form__Pokemon" onSubmit={handleSubmit}>
         <div className="container__form">
           <div className="side__top">
-            <h1>Carga tu Pokemon</h1>
+            <h1>Create your Pokemon</h1>
           </div>
           <div className="continainer__sides">
             <div className="side__left">
@@ -150,15 +168,38 @@ const Forms = () => {
               />
               <br />
               <label htmlFor="">Tipos:</label>
-              <select name="tipo" id="" onChange={onInputTypes} form="carform">
-                {tipo.map((el, item) => {
+              <select
+                className="mapeo"
+                name="tipo"
+                id=""
+                onChange={handleSelect}
+                form="carform"
+              >
+                {types.map((el, item) => {
                   return (
-                    <option key={item} value={el.name}>
+                    <option className="opciones" key={item} value={el.name}>
                       {el.name}{" "}
                     </option>
                   );
                 })}
               </select>
+              <div className="div">
+                {pokemon.tipo.map((el) => {
+                  return (
+                    <div className="div_types" key={el}>
+                      <h4 className="h4">{el}</h4>
+                      <button
+                        className="x_button"
+                        onClick={() => {
+                          handleDelete(el);
+                        }}
+                      >
+                        x
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
           <div className="side__bottom">

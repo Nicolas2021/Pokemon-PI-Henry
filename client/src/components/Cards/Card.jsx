@@ -1,5 +1,7 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import "./Card.css";
+import { getById } from "../../redux/actions/pokemonAction";
 import {
   toUpperCaseNamePokemon,
   getColorByTypesOfPokemon,
@@ -7,14 +9,16 @@ import {
 } from "../domain/pokemons/pokemones.js";
 //-------------------------------------
 
-export const Card = ({ id, nombre, img, tipos, openModal, setearNumero }) => {
+export const Card = ({ id, nombre, img, tipos, openModal }) => {
+  const dispatch = useDispatch();
+
   var name = toUpperCaseNamePokemon(nombre);
   const colorTypes = getColorByTypesOfPokemon(tipos);
   const newId = addZeroToId(id);
   //-------------------------------------
 
   function OnClickPokemon(pokemonId) {
-    setearNumero(pokemonId);
+    dispatch(getById(pokemonId));
     openModal();
   }
   //-------------------------------------
