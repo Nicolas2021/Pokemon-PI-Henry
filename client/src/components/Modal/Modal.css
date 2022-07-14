@@ -93,16 +93,17 @@
 /*Parte del body*/
 
 .modal__body {
-  height: 100%;
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
+  height: 100%;
+  width: auto;
 }
 
 .modal__body img {
+  align-self: center;
   width: 180px;
   height: 180px;
-  border: #f4a259 2px solid;
   border-radius: 20px;
 }
 
@@ -111,8 +112,16 @@
   margin-top: 15px;
   height: 100%;
   display: flex;
+  justify-content: space-evenly;
+}
+
+.claro{
+  line-height: 30px;
+  margin-top: 15px;
+  margin-right: 10px;
+  display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  align-content: flex-start;
 }
 
 .modal__info p {

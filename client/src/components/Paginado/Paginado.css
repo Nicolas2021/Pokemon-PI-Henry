@@ -9,15 +9,14 @@
 
 .boxes__container {
   background-color: #616161;
-  height: 50px;
+  height: 45px;
   width: 100%;
 }
 
 .bordeado__container {
-  display: inline-flex;
   background-color: #616161;
   align-self: center;
-  height: 25px;
+  height: 30px;
   width: 500px;
   position: relative;
 }
@@ -26,10 +25,10 @@
   background: transparent
     url(https://assets.pokemon.com/static2/_ui/img/chrome/notches/large-notch-darkgray.png)
     no-repeat;
-  background-size: 38px 26px;
+  background-size: 38px 32px;
   content: "";
   width: 38px;
-  height: 25px;
+  height: 30px;
   position: absolute;
   transform: scaleY(-1);
   left: -38px;
@@ -39,51 +38,57 @@
   background: transparent
     url(https://assets.pokemon.com/static2/_ui/img/chrome/notches/large-notch-darkgray.png)
     no-repeat;
-  background-size: 38px 26px;
+  background-size: 38px 32px;
   content: "";
   width: 38px;
-  height: 25px;
+  height: 30px;
   position: absolute;
   transform: scaleY(-1);
   transform: rotate(180deg);
   right: -38px;
 }
 
-.paginado {
-  position: relative;
-  margin-top: 40px;
-  display: inline-block;
-  padding: 0;
-}
-
-.paginado li {
-  display: inline;
-}
-
-.paginado li button {
-  color: black;
-  float: left;
-  padding: 8px 16px;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: 0.3s;
-  margin: 0 2px;
-  font-size: 15px;
-}
-
-.arrow {
-  width: 40px;
-  height: 20px;
-  cursor: pointer;
-}
-
 .boton {
-  margin-top: 10px;
+  background-color: #616161;
   cursor: pointer;
-  height: 30px;
+  height: 25px;
   width: 100px;
+  transition: all 400ms ease;
+  border: 2px solid #383535;
+  border-radius: 5px;
+
 }
 
 .boton:hover {
-  background-color: #adadad;
+  color: #f1f1f1;
+  background-color:#383535;
 }
+
+.pagination_btn {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination_btn li{
+  margin-top: 10px;
+}
+
+.pagination_btn a {
+  padding: 3px;
+  margin: 8px;
+  border-radius: 5px;
+  border: 1px solid #383535;
+  cursor: pointer;
+  transition: all 400ms ease;
+}
+
+.pagination_btn a:hover {
+  color: #ffffff;
+  background-color: #3d3939;
+}
+
+.pagination_active a{
+  color: #ffffff;
+  background-color: #3d3939;
+} 

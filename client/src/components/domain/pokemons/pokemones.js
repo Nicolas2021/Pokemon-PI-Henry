@@ -33,6 +33,11 @@ export function getColorByTypesOfPokemon(types) {
   return colorsByType;
 }
 
+export function changeColorBorder(type){
+  const colorBorder = {color: typeColors[type[0]]+" 2px solid"};
+  return colorBorder
+}
+
 export function addZeroToId(id) {
   if (id < 10) {
     id = "00" + id;

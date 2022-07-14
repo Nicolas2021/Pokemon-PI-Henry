@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { setearId } from "../../redux/actions/pokemonAction";
+import { toUpperCaseNamePokemon, changeColorBorder } from "../domain/pokemons/pokemones";
 import "./Modal.css";
 
 export const Modal = ({ closeModal, pokemons }) => {
@@ -23,6 +24,9 @@ export const Modal = ({ closeModal, pokemons }) => {
       </div>
     );
   } else {
+    console.log(pokemons);
+  const colorBorder = changeColorBorder(pokemons[0]?.tipos)
+    const name = toUpperCaseNamePokemon(pokemons[0]?.nombre)
     return (
       <div className="modal__open">
         <div className="modal__container">
@@ -34,16 +38,23 @@ export const Modal = ({ closeModal, pokemons }) => {
             </div>
           </div>
           <div className="modal__body">
-            <img src={pokemons[0].img} alt="" />
+            <img src={pokemons[0].img} alt="" style={{border: colorBorder.color}}/>
             <div className="modal__info">
-              <p>Nombre: {pokemons[0].nombre} </p>
-              <p>Vida: {pokemons[0].vida}</p>
-              <p>Fuerza: {pokemons[0].fuerza}</p>
-              <p>Defensa: {pokemons[0].defensa}</p>
-              <p>Velocidad: {pokemons[0].velocidad}</p>
-              <p>Altura: {pokemons[0].altura}</p>
-              <p>Peso: {pokemons[0].peso}</p>
-              <p>Tipo: {pokemons[0].tipos.join(", ")}</p>
+              <div className="claro">
+
+              <p>Name: {name} </p>
+              <p>Life: {pokemons[0].vida}</p>
+              <p>Strong: {pokemons[0].fuerza}</p>
+              <p>Defense: {pokemons[0].defensa}</p>
+              </div>
+              <div className="claro">
+              <p>Type: {pokemons[0].tipos.join(", ")}</p>
+              <p>Speed: {pokemons[0].velocidad}</p>
+              <p>Height: {pokemons[0].altura}</p>
+              <p>Weight: {pokemons[0].peso}</p>
+
+              </div>
+
             </div>
           </div>
         </div>

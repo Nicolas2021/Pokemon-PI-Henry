@@ -20,7 +20,7 @@ async function getPokemonByName(req, res) {
     const nameFromDb = await Pokemon.findOne({
       where: { nombre: `${name}` },
       include: [{ model: Tipo }],
-    });
+    }); 
     if (nameFromDb === null) {
       const getNombre = await axios.get(`${urlApi}/pokemon/${name}`);
       const obtain = pokemonNameApi(getNombre);
@@ -70,28 +70,30 @@ async function getExistOrCreate(req, res) {
 //----------------------------------------------------------//
 async function getAllPokemons(req, res) {
   try {
-    const dbPokemons = await Pokemon.findAll({ include: { model: Tipo } });
-    const pokemonsResultsFromDB = pokemonsFromBD(dbPokemons);
+    /* const dbPokemons = await Pokemon.findAll({ include: { model: Tipo } });
+    const pokemonsResultsFromDB = pokemonsFromBD(dbPokemons); */
 
-    const pokemonsUrls = await axios.get(`${urlApi}/pokemon`);
-    const nextPokemonsUrls = await axios.get(`${pokemonsUrls.data.next}`);
+    const pokemonsUrls = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=40&offset=0');
+    /* const nextPokemonsUrls = await axios.get(`${pokemonsUrls.data.next}`);
     const pokemons = pokemonsUrls.data.results.map((pokemon) =>
       axios.get(pokemon.url)
-    );
-    const nextPokemons = nextPokemonsUrls.data.results.map((pokemon) =>
+    ); */
+    
+    /* const nextPokemons = nextPokemonsUrls.data.results.map((pokemon) =>
       axios.get(pokemon.url)
-    );
-    const results = await Promise.all(pokemons);
-    const resultsNext = await Promise.all(nextPokemons);
-
-    const response = createMyPokemonsResponseFromApi(results);
-    const responseNext = createMyPokemonsResponseFromApi(resultsNext);
+    ); */
+    const results = await Promise.all(pokemonsUrls);
+    /* console.log(results); */
+   /*  const resultsNext = await Promise.all(nextPokemons); */
+    /* console.log(pokemons); */
+    /* const response = createMyPokemonsResponseFromApi(results);
+    const responseNext = createMyPokemonsResponseFromApi(resultsNext); */
     //concat pokemons from api and db
-    const allPokemons = response
+    /* const allPokemons = response
       .concat(responseNext)
-      .concat(pokemonsResultsFromDB);
+      .concat(pokemonsResultsFromDB); */
 
-    res.status(200).send(allPokemons);
+    res.status(200).send(results);
   } catch (error) {
     res.status(500).send({ error });
   }
@@ -120,7 +122,7 @@ async function getAllTypes(req, res) {
 
 async function getById(req, res) {
   let { id } = req.params;
-  console.log(id);
+/*   console.log(id);
   if (id.length > 3) {
     try {
       const pokemonGetByDbId = await Pokemon.findByPk(id, { include: [Tipo] });
@@ -128,16 +130,16 @@ async function getById(req, res) {
       res.send(resultPokemonDb);
     } catch (error) {
       res.send(error);
-    }
-  } else {
+    } */
+ /*  } else { */
     try {
       const pokemonsGetById = await axios.get(`${urlApi}/pokemon/${id}`);
-      const pokemonGet = pokemonsId(pokemonsGetById);
-      res.send(pokemonGet);
+     /*  const pokemonGet = pokemonsId(pokemonsGetById); */
+      res.send(pokemonsGetById);
     } catch (error) {
       res.send(error);
     }
-  }
+  /* } */
 }
 
 //----------------------------------------------------------//
@@ -161,7 +163,6 @@ async function createPokemon(req, res) {
         img ||
         "https://gogeticons.com/frontend/web/icons/data/2/7/2/9/2/superball_512.png",
     });
-    console.log(req.body);
     tipo.map(async (t) => {
       const [postTypes, succes] = await Tipo.findOrCreate({
         where: {
